@@ -16,7 +16,7 @@ public class MySecondTest {
 
         driver.navigate().to("http://seleniumsimplified.com/");
         Assert.assertTrue("title should start with Selenium Simplified",
-         driver.getTitle().startsWith("Selenium Simplified"));
+                driver.getTitle().startsWith("Selenium Simplified"));
 
         driver.close();
         driver.quit();
@@ -25,20 +25,43 @@ public class MySecondTest {
 
     @Test
 
-    public void trainLine() {
+    public void trainLine() throws InterruptedException {
+        System.setProperty("webdriver.chrome.driver", "C:\\\\workspace\\\\chromedriver.exe");
         WebDriver driver = new ChromeDriver();
+        driver.manage().window().maximize();
         driver.navigate().to("https://www.thetrainline.com/");
-        Assert.assertTrue("title should start with Trainline",
-                driver.getTitle().startsWith("Trainline"));
-        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+        Assert.assertTrue("title should start with Trainline", driver.getTitle().startsWith("Trainline"));
+        Thread.sleep(5000);
 
-        driver.findElement(By.xpath(" .//*[@id='from.text']")).sendKeys("Southampton");
+        driver.findElement(By.xpath(" .//*[@id='originStation']")).sendKeys("Southampton");
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
-        driver.findElement(By.xpath(" .//*[@id='to.text']")).sendKeys("Leeds");
+        driver.findElement(By.xpath(" .//*[@id='destinationStation']")).sendKeys("Leeds");
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
-        driver.findElement(By.id("submitButton")).click();
+        driver.findElement(By.xpath(".//*[@id='submitButton']")).click();
 
         driver.close();
         driver.quit();
     }
+
+
+    @Test
+
+    public void myShop() throws InterruptedException {
+        System.setProperty("webdriver.chrome.driver", "C:\\\\workspace\\\\chromedriver.exe");
+        WebDriver driver = new ChromeDriver();
+        driver.manage().window().maximize();
+        driver.navigate().to("http://automationpractice.com/index.php");
+        Assert.assertTrue("title should start with My Store", driver.getTitle().startsWith("My Store"));
+
+        driver.findElement(By.xpath("//*[@id=\"header\"]/div[2]/div/div/nav/div[1]/a")).click();
+        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+        driver.findElement(By.xpath("//*[@id=\"email\"]")).sendKeys("pogba@test.com");
+        driver.findElement(By.xpath("//*[@id=\"passwd\"]")).sendKeys("victoria123");
+        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+        driver.findElement(By.xpath("//*[@id=\"SubmitLogin\"]/span")).click();
+
+//        driver.close();
+//        driver.quit();
+    }
 }
+
