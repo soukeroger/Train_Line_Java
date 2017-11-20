@@ -6,6 +6,9 @@ import org.openqa.selenium.chrome.ChromeDriver;
 
 import java.util.concurrent.TimeUnit;
 
+import static org.openqa.selenium.By.cssSelector;
+import static org.openqa.selenium.By.id;
+
 public class MySecondTest {
 
     @Test
@@ -28,19 +31,21 @@ public class MySecondTest {
     public void trainLine() throws InterruptedException {
         System.setProperty("webdriver.chrome.driver", "C:\\\\workspace\\\\chromedriver.exe");
         WebDriver driver = new ChromeDriver();
+        driver.manage().deleteAllCookies();
         driver.manage().window().maximize();
         driver.navigate().to("https://www.thetrainline.com/");
         Assert.assertTrue("title should start with Trainline", driver.getTitle().startsWith("Trainline"));
         Thread.sleep(5000);
 
-        driver.findElement(By.xpath(" .//*[@id='originStation']")).sendKeys("Southampton");
+        driver.findElement(By.xpath(".//*[@id='mainNavCollapse']/ul/li[1]/a")).click();
+        driver.findElement(By.xpath(".//*[@id='originStation']")).sendKeys("Southampton");
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
-        driver.findElement(By.xpath(" .//*[@id='destinationStation']")).sendKeys("Leeds");
-        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
-        driver.findElement(By.xpath(".//*[@id='submitButton']")).click();
-
-        driver.close();
-        driver.quit();
+        driver.findElement(id(".//*[@id='destinationStation']")).sendKeys("Leeds");
+//        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+//        driver.findElement(By.id("submitButton")).click();
+//
+//        driver.close();
+//        driver.quit();
     }
 
 
@@ -59,9 +64,35 @@ public class MySecondTest {
         driver.findElement(By.xpath("//*[@id=\"passwd\"]")).sendKeys("victoria123");
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
         driver.findElement(By.xpath("//*[@id=\"SubmitLogin\"]/span")).click();
+        driver.findElement(By.xpath(".//*[@id='block_top_menu']/ul/li[3]/a")).click();
+        driver.findElement(cssSelector(".product_img_link > img:nth-child(1)")).click();
+        String boxColor = driver.findElement(By.id("color_14")).getCssValue("background-color").trim();
+        Assert.assertEquals(boxColor, true, "rgb(93, 156, 236)");
+//        System.out.println("rgba(93, 156, 236, 1)\"" + color);
+//        driver. findElement(id("color_14")).get.underlying.getCssValue("background-color")
+//        colorIsBlue shouldBe  "rgba(93, 156, 236, 1)"
+
 
 //        driver.close();
 //        driver.quit();
     }
+
+
+    @Test
+
+    public void manchesterAirportWebdriver() {
+//        System.setProperty("webdriver.chrome.driver", "C:\\workspace\\chromedriver.exe");
+        WebDriver driver = new ChromeDriver();
+
+        driver.navigate().to(" https://shop.manchesterairport.co.uk/");
+        Assert.assertTrue("title should start with Shopping",
+                driver.getTitle().startsWith("Shopping"));
+        driver.findElement(By.xpath(".//*[@id='my-page']/nav/div[2]/div/div/div/div[2]/div[1]/div/ul/li[1]/a")).click();
+        driver.getPageSource().contains("Beauty");
+////        driver.close();
+//        driver.quit();
+
+    }
+
 }
 
