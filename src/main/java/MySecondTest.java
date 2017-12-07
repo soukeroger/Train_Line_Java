@@ -7,7 +7,6 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import java.util.concurrent.TimeUnit;
 
 import static org.openqa.selenium.By.cssSelector;
-import static org.openqa.selenium.By.id;
 
 public class MySecondTest {
 
@@ -37,13 +36,14 @@ public class MySecondTest {
         Assert.assertTrue("title should start with Trainline", driver.getTitle().startsWith("Trainline"));
         Thread.sleep(5000);
 
-        driver.findElement(By.xpath(".//*[@id='mainNavCollapse']/ul/li[1]/a")).click();
+//        driver.findElement(By.xpath(".//*[@id='mainNavCollapse']/ul/li[1]/a")).click();
         driver.findElement(By.xpath(".//*[@id='originStation']")).sendKeys("Southampton");
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
-        driver.findElement(id(".//*[@id='destinationStation']")).sendKeys("Leeds");
-//        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
-//        driver.findElement(By.id("submitButton")).click();
-//
+        driver.findElement(By.xpath(".//*[@id='destinationStation']")).sendKeys("Leeds");
+        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+        driver.findElement(By.cssSelector("span.glyphicon.glyphicon-remove.is-alone")).click();
+        driver.findElement(By.id("submitButton")).click();
+
 //        driver.close();
 //        driver.quit();
     }
@@ -66,8 +66,11 @@ public class MySecondTest {
         driver.findElement(By.xpath("//*[@id=\"SubmitLogin\"]/span")).click();
         driver.findElement(By.xpath(".//*[@id='block_top_menu']/ul/li[3]/a")).click();
         driver.findElement(cssSelector(".product_img_link > img:nth-child(1)")).click();
-        String boxColor = driver.findElement(By.id("color_14")).getCssValue("background-color").trim();
-        Assert.assertEquals(boxColor, true, "rgb(93, 156, 236)");
+        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+        driver.findElement(By.xpath(".//*[@id='add_to_cart']/button")).click();
+//
+//        String boxColor = driver.findElement(By.id("color_14")).getCssValue("background-color").trim();
+//        Assert.assertEquals(boxColor, true, "rgb(93, 156, 236)");
 //        System.out.println("rgba(93, 156, 236, 1)\"" + color);
 //        driver. findElement(id("color_14")).get.underlying.getCssValue("background-color")
 //        colorIsBlue shouldBe  "rgba(93, 156, 236, 1)"
@@ -80,7 +83,7 @@ public class MySecondTest {
 
     @Test
 
-    public void manchesterAirportWebdriver() {
+    public void manchesterAirportWebdriver() throws InterruptedException  {
 //        System.setProperty("webdriver.chrome.driver", "C:\\workspace\\chromedriver.exe");
         WebDriver driver = new ChromeDriver();
 
@@ -89,6 +92,7 @@ public class MySecondTest {
                 driver.getTitle().startsWith("Shopping"));
         driver.findElement(By.xpath(".//*[@id='my-page']/nav/div[2]/div/div/div/div[2]/div[1]/div/ul/li[1]/a")).click();
         driver.getPageSource().contains("Beauty");
+        driver.findElement(By.cssSelector(".col-xs-24.third-tier>a")).click();
 ////        driver.close();
 //        driver.quit();
 
