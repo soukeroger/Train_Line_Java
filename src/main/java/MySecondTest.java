@@ -56,7 +56,7 @@ public class MySecondTest {
         Assert.assertTrue("title should start with Trainline", driver.getTitle().startsWith("Trainline"));
         Thread.sleep(5000);
         driver.findElement(By.id("journey-type-return")).click();
-        driver.findElement(By.xpath(".//*[@id='originStation']")).sendKeys("Southampton");
+        driver.findElement(By.xpath(".//*[@id='originStation']")).sendKeys("Derby");
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
         driver.findElement(By.xpath(".//*[@id='destinationStation']")).sendKeys("Leeds");
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
@@ -64,8 +64,8 @@ public class MySecondTest {
         driver.findElement(By.id("submitButton")).click();
         String pageTitle = driver.getTitle();
         Assert.assertTrue("Page title contains 'Trainline'", pageTitle.contains("Trainline"));
-        driver.close();
-        driver.quit();
+//        driver.close();
+//        driver.quit();
 
     }
 
